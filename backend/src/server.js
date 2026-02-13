@@ -5,6 +5,8 @@ import { sequelize } from "./models/index.js";
 import authRoutes from "./routes/authRoutes.js";
 import { protect } from "./middlewares/authMiddleware.js";
 import restaurantRoutes from "./routes/restaurantRoutes.js";
+import menuItemRoutes from "./routes/menuItemRoutes.js"
+import orderRoutes from "./routes/orderRoutes.js";
 
 dotenv.config();
 
@@ -15,6 +17,8 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/menuItem" , menuItemRoutes);
+app.use("/api/orders" , orderRoutes);
 
 app.get("/", (req, res) => {
   res.send("CasaLivraison API is running");
