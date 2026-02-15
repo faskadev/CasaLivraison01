@@ -10,12 +10,10 @@ import { protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/" , getAllMenuItems);
-router.get("/" , getMenuItemsByRestaurant);
-router.post("/restaurant/:restaurantId" , protect , createMenuItem);
-router.put("/.id" , protect , updateMenuItem);
-router.delete("/.id" , protect , deleteMenuItem);
+router.get("/", getAllMenuItems);
+router.get("/restaurant/:restaurantId", getMenuItemsByRestaurant);
+router.post("/restaurant/:restaurantId", protect, createMenuItem);
+router.put("/:id", protect, updateMenuItem);
+router.delete("/:id", protect, deleteMenuItem);
 
 export default router;
-
-
