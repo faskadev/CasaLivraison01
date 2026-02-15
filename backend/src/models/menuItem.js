@@ -21,6 +21,14 @@ const MenuItem = sequelize.define ('MenuItem' ,  {
     type : DataTypes.TEXT,
     allowNull : false,
   },
+  image_url : {
+    type : DataTypes.STRING,
+    allowNull: true,
+  },
+  restaurant_id : {
+    type : DataTypes.INTEGER,
+    allowNull : false,
+  },
 
 });
 export default MenuItem;

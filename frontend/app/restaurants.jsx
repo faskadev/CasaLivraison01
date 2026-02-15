@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
+  Image,
 } from "react-native";
 
 
@@ -51,6 +52,12 @@ export default function RestaurantsScreen() {
           })
         }
       >
+        {item.image_url && (
+          <Image
+            source={{ uri: item.image_url }}
+            style={styles.image}
+          />
+        )}
         <Text style={styles.name}>{item.name}</Text>
 
         {item.address && (
@@ -103,6 +110,13 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 10,
     marginBottom: 12,
+  },
+
+  image: {
+    width: "100%",
+    height: 200,
+    borderRadius: 8,
+    marginBottom: 8,
   },
 
   name: {

@@ -8,6 +8,10 @@ const Order = sequelize.define ('Order' , {
         primaryKey : true,
         autoIncrement : true,
     },
+    user_id : {
+        type : DataTypes.INTEGER,
+        allowNull : false,
+    },
     status: {
         type: DataTypes.STRING,
         allowNull : false,
@@ -18,7 +22,7 @@ const Order = sequelize.define ('Order' , {
     },
     delivery_address : {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
     },
 });
 

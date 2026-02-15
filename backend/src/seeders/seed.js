@@ -62,6 +62,7 @@ const seed = async () => {
         name: "Tagine",
         price: 80,
         ingredients: "Lamb, onions, tomatoes, spices, preserved lemon",
+        image_url: "https://ik.imagekit.io/huntermed/images.jpg?updatedAt=1771019562006",
         restaurant_id: restaurants[0].id
         
       },
@@ -70,6 +71,7 @@ const seed = async () => {
         name: "Couscous",
         price: 70,
         ingredients: "Semolina, vegetables, chickpeas, broth",
+        image_url: "https://ik.imagekit.io/huntermed/i183013-couscous-marocain.jpeg?updatedAt=1771019571377",
         restaurant_id: restaurants[0].id
       },
 
@@ -77,6 +79,7 @@ const seed = async () => {
         name: "Noodles",
         price: 60,
         ingredients: "Egg noodles, vegetables, soy sauce, garlic",
+        image_url: "https://ik.imagekit.io/huntermed/NOODLES.jpg?updatedAt=1771019561963",
         restaurant_id: restaurants[1].id
       },
 
@@ -84,6 +87,7 @@ const seed = async () => {
         name: "Pizza Margherita",
         price: 90,
         ingredients: "Tomato sauce, mozzarella cheese, fresh basil, olive oil",
+        image_url: "https://ik.imagekit.io/huntermed/homemade-pizza-in-air-fryer.jpg?updatedAt=1771019571537",
         restaurant_id: restaurants[2].id
       },
 
@@ -91,6 +95,7 @@ const seed = async () => {
         name: "Cheeseburger",
         price: 50,
         ingredients: "Ground beef, cheese, lettuce, tomato, pickles, bun",
+        image_url: "https://ik.imagekit.io/huntermed/BURGER.jpg?updatedAt=1771019569223",
         restaurant_id: restaurants[3].id
       }
 

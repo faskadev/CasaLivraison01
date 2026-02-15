@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { router } from "expo-router";
 import api from "../src/services/api.js";
@@ -43,6 +44,10 @@ export default function LoginScreen() {
         password: password,
       });
       console.log("Login success:", response.data);
+      // Store the token
+      if (response.data.token) {
+        await AsyncStorage.setItem("authToken", response.data.token);
+      }
       Alert.alert("Success", "Login successful");
       router.replace("/restaurants");
 

@@ -8,12 +8,13 @@ export const protect  = (req , res , next ) => {
             const decoded = jwt.verify(token , process.env.JWT_SECRET);
             req.user = decoded;
             next();
+            return;
         } catch (error){
-            res.status(401).json({message :"not authorized"});
+            return res.status(401).json({message :"not authorized"});
         }
     } 
     if (!token){
-        res.status(401).json({message :"no token found"});
+        return res.status(401).json({message :"no token found"});
     }
 
 }
