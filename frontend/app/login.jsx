@@ -3,9 +3,9 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -44,7 +44,6 @@ export default function LoginScreen() {
         password: password,
       });
       console.log("Login success:", response.data);
-      // Store the token
       if (response.data.token) {
         await AsyncStorage.setItem("authToken", response.data.token);
       }
@@ -91,14 +90,20 @@ export default function LoginScreen() {
         style={styles.input}
       />
 
-      <Button
+      <TouchableOpacity
         title={loading ? "Logging in..." : "Login"}
         onPress={handleLogin}
-      />
-      <Button
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>{loading ? "Logging in..." : "Login"}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
         title="Don't have an account? Register"
         onPress={() => router.push("/register")}
-      />
+        style={styles.registerButton}
+      >
+        <Text style={styles.registerButtonText}>Dont have an account? Register</Text>
+      </TouchableOpacity>
 
     </View>
   );
@@ -125,5 +130,26 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 5,
   },
+  button: {
+    backgroundColor: "#ffa600",
+    padding: 15,
+    borderRadius: 5,
+  },
+  registerButton: {
+    backgroundColor: "#28a745",
+    padding: 15,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  registerButtonText: {
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+  }
 
 });

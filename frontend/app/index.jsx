@@ -6,7 +6,6 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Text>CasaLivraison App </Text>
-      <Text>Welcome to the home screen!</Text>
       <Button
         style={styles.button}
         onPress={() => router.push("/login")} >

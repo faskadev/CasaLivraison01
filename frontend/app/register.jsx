@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   Alert,
   TouchableOpacity
@@ -27,7 +26,6 @@ export default function RegisterScreen() {
       Alert.alert("Error", "Fill all fields");
       return;
     }
-
     try {
 
       setLoading(true);
@@ -54,7 +52,6 @@ export default function RegisterScreen() {
     }
 
   };
-
 
   return (
 
@@ -83,13 +80,15 @@ export default function RegisterScreen() {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-        style={styles.input}
-      />
+        style={styles.input} />
 
-      <Button
+      <TouchableOpacity
         title={loading ? "Creating..." : "Register"}
         onPress={handleRegister}
-      />
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>{loading ? "Creating..." : "Register"}</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() => router.push("/login")}
@@ -132,5 +131,20 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "blue",
   },
-
+button: {
+    backgroundColor: "#ffa600",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+buttonText: {
+    color: "white",
+    fontWeight: "bold",},
+registerButton: {
+    backgroundColor: "#28a745",
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 15,
+  },
 });
+

@@ -41,7 +41,7 @@ export default function OrderScreen() {
     onSuccess: () => {
       Alert.alert("Success", "Order created successfully");
 
-      router.push("/restaurants");
+      router.push("./myOrders");
     },
 
     onError: (error) => {
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "#333",
+    backgroundColor: "#ffa600",
     padding: 10,
     borderRadius: 5,
     width: 40,
