@@ -1,9 +1,9 @@
 import sequelize from "../config/database.js";
 import User from "./user.js";
-import MenuItem from "./MenuItem.js";
+import MenuItem from "./menuItem.js";
 import Order from "./order.js";
 import OrderItem from "./orderItem.js";
-import Restaurant from "./Restaurant.js";
+import Restaurant from "./restaurant.js";
 
 User.hasMany(Order, { foreignKey: "user_id" });
 Order.belongsTo(User, { foreignKey: "user_id" });
