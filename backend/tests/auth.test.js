@@ -1,6 +1,23 @@
 import request from "supertest";
 import app from "../src/app.js";
 import { sequelize } from "../src/models/index.js";
+import bcrypt from "bcrypt";
+import { User } from "../src/models/index.js";
+
+
+beforeAll(async () => {
+
+  await sequelize.sync({ force: true });
+
+  const hashedPassword = await bcrypt.hash("azerty", 10);
+
+  await User.create({
+    name: "Mohamed",
+    email: "mohamed@mail.com",
+    password_hash: hashedPassword,
+  });
+
+});
 
 describe("POST /api/auth/login", () => {
 
