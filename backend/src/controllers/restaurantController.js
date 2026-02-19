@@ -1,4 +1,4 @@
-import { Restaurant } from "../models/index.js  ";
+import { Restaurant } from "../models/index.js";
 
 export const createRestaurant = async (req , res) => {
     try {
