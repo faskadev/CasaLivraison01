@@ -1,34 +1,35 @@
 name: Backend CI
 
-on:
-  push:
-    paths:
-      - "backend/**"
+on: [push]
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
-    steps:
+    defaults:
+      run:
+        working-directory: backend
 
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: testdb
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_DIALECT: postgres
+      JWT_SECRET: testsecret
+
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Go to backend folder
-        run: cd backend
-
       - name: Install dependencies
-        run: |
-          cd backend
-          npm install
+        run: npm install
 
       - name: Run tests
-        run: |
-          cd backend
-          npm test
+        run: npm test
