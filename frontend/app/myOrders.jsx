@@ -123,8 +123,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "700",
-    marginBottom: 20,
+    marginTop: 30,
     color: DARK,
+    marginBottom: 10,
+
   },
   center: {
     flex: 1,

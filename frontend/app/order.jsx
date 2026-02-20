@@ -47,7 +47,7 @@ export default function OrderScreen() {
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
         
-        {/* HEADER */}
+       
         <View style={styles.header}>
           <TouchableOpacity onPress={() => router.back()}>
             <Text style={styles.back}>←</Text>
