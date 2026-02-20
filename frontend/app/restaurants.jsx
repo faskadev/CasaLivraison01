@@ -13,7 +13,6 @@ import {
 } from "react-native";
 
 export default function RestaurantsScreen() {
-
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["restaurants"],
     queryFn: async () => {
@@ -53,13 +52,13 @@ export default function RestaurantsScreen() {
       style={styles.card}
       onPress={() => router.push({ pathname: "/menu", params: { restaurantId: item.id } })}
     >
-      {item.image_url && (
-        <Image source={{ uri: item.image_url }} style={styles.image} />
-      )}
+      {item.image_url && <Image source={{ uri: item.image_url }} style={styles.image} />}
 
       <View style={styles.info}>
         <Text style={styles.name}>{item.name}</Text>
         {item.category && <Text style={styles.category}>{item.category}</Text>}
+        {item.description && <Text style={styles.description}>{item.description}</Text>}
+        {item.rating && <Text style={styles.rating}>Rating: {item.rating.toFixed(1)} / 5</Text>}
         {item.address && <Text style={styles.address}>{item.address}</Text>}
       </View>
     </TouchableOpacity>
@@ -127,6 +126,19 @@ const styles = StyleSheet.create({
   },
 
   category: {
+    fontSize: 14,
+    color: "#FF6347",
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+
+  description: {
+    fontSize: 14,
+    color: "#555",
+    marginBottom: 4,
+  },
+
+  rating: {
     fontSize: 14,
     color: "#FF6347",
     fontWeight: "600",

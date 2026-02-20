@@ -141,7 +141,7 @@ const seed = async () => {
           "Classic Chinese fried rice with eggs, vegetables and soy sauce.",
         rating: 4.1,
         ingredients: "Rice, eggs, vegetables, soy sauce, chicken",
-        image_url: "https://ik.imagekit.io/huntermed/fried_rice.jpg",
+        image_url: "https://images.getrecipekit.com/20220904015448-veg-20fried-20rice.png?aspect_ratio=16:9&quality=90&",
         restaurant_id: restaurants[1].id,
       },
 
@@ -162,7 +162,7 @@ const seed = async () => {
         description: "Creamy pasta with parmesan cheese and crispy pancetta.",
         rating: 4.5,
         ingredients: "Spaghetti, eggs, parmesan, pancetta, pepper",
-        image_url: "https://ik.imagekit.io/huntermed/pasta.jpg",
+        image_url: "https://www.jonesdairyfarm.com/wp-content/uploads/2024/04/Spaghetti-Carbonara-1024x683.jpg.webp",
         restaurant_id: restaurants[2].id,
       },
 
@@ -184,7 +184,7 @@ const seed = async () => {
         description: "Golden crispy french fries served with ketchup.",
         rating: 4.0,
         ingredients: "Crispy french fries with ketchup",
-        image_url: "https://ik.imagekit.io/huntermed/fries.jpg",
+        image_url: "https://olo-images-live.imgix.net/16/161a5a82d5524cd5ac9e356712ec4885.jpg?auto=format%2Ccompress&q=60&cs=tinysrgb&w=1200&h=800&fit=fill&fm=png32&bg=transparent&s=d663f727f0937a2a28e1d909a0c2e047",
         restaurant_id: restaurants[3].id,
       },
 
@@ -227,7 +227,7 @@ const seed = async () => {
         description: "Grilled chicken burrito wrapped with rice and beans.",
         rating: 4.4,
         ingredients: "Chicken, rice, beans, cheese, tortilla",
-        image_url: "https://ik.imagekit.io/huntermed/chicken_burrito.jpg",
+        image_url: "https://nomoneynotime.com.au/imager/uploads/recipes/1490/Chicken-Burrito_461122a663362b265b24d0ffaf0f7f5f.webp",
         restaurant_id: restaurants[5].id,
       },
 
