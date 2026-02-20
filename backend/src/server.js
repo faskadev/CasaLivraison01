@@ -1,6 +1,6 @@
+import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import { sequelize } from "./models/index.js";
 import authRoutes from "./routes/authRoutes.js";
 import { protect } from "./middlewares/authMiddleware.js";
@@ -8,6 +8,8 @@ import restaurantRoutes from "./routes/restaurantRoutes.js";
 import menuItemRoutes from "./routes/menuItemRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js";
 import morgan from "morgan";
+
+console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
 dotenv.config();
 
@@ -25,7 +27,7 @@ app.get("/", (req, res) => {
   res.send("CasaLivraison API is running");
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   try {

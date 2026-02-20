@@ -9,7 +9,6 @@ import {
   OrderItem
 } from "../models/index.js";
 
-
 const seed = async () => {
 
   try {

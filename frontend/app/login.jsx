@@ -6,80 +6,55 @@ import {
   StyleSheet,
   Alert,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { router } from "expo-router";
 import api from "../src/services/api.js";
 
 export default function LoginScreen() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-
-    console.log("BASE URL:", api?.defaults?.baseURL);
-    console.log("API object exists:", !!api);
-
     if (!api) {
       Alert.alert("Error", "API client not initialized");
       return;
     }
-
     if (!email || !password) {
       Alert.alert("Error", "Please enter email and password");
       return;
     }
-
     try {
-
       setLoading(true);
-
-      console.log("Sending login request to:", api.defaults.baseURL);
-
-      const response = await api.post("/auth/login", {
-        email: email,
-        password: password,
-      });
-      console.log("Login success:", response.data);
+      const response = await api.post("/auth/login", { email, password });
       if (response.data.token) {
         await AsyncStorage.setItem("authToken", response.data.token);
       }
       Alert.alert("Success", "Login successful");
       router.replace("/restaurants");
-
     } catch (error) {
-
-      console.log("Login error object:", error);
-      console.log("Error response:", error.response?.data);
-      console.log("Error message:", error.message);
-
       Alert.alert(
         "Login failed",
         error.response?.data?.message || error.message || "Error occurred"
       );
-
     } finally {
-
       setLoading(false);
-
     }
   };
 
   return (
-    <View style={styles.container}>
-
-      <Text style={styles.title}>
-        CasaLivraison Login
-      </Text>
+    <View style={styles.wrapper}>
+      <Text style={styles.header}>CasaLivraison</Text>
+      <Text style={styles.subHeader}>Sign in to start ordering</Text>
 
       <TextInput
-        placeholder="Email"
+        placeholder="Email Address"
         value={email}
         onChangeText={setEmail}
         style={styles.input}
+        keyboardType="email-address"
       />
 
       <TextInput
@@ -91,65 +66,108 @@ export default function LoginScreen() {
       />
 
       <TouchableOpacity
-        title={loading ? "Logging in..." : "Login"}
         onPress={handleLogin}
-        style={styles.button}
+        style={[styles.button, loading && styles.buttonDisabled]}
+        disabled={loading}
       >
-        <Text style={styles.buttonText}>{loading ? "Logging in..." : "Login"}</Text>
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.buttonText}>Login</Text>
+        )}
       </TouchableOpacity>
+
       <TouchableOpacity
-        title="Don't have an account? Register"
         onPress={() => router.push("/register")}
         style={styles.registerButton}
       >
-        <Text style={styles.registerButtonText}>Dont have an account? Register</Text>
+        <Text style={styles.registerText}>Don't have an account? Register</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity
+        onPress={() => router.push("/index")}
+        style={styles.navigateButton}
+      >
+        <Text style={styles.navigateButtonText}>Go to Home Page</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-
-  container: {
+  wrapper: {
     flex: 1,
     justifyContent: "center",
-    padding: 20,
+    paddingHorizontal: 25,
+    backgroundColor: "#F0F4F8",
   },
-
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
+  header: {
+    fontSize: 36,
+    fontWeight: "700",
+    color: "#F59E0B", // برتقالي CasaLivraison
     textAlign: "center",
+    marginBottom: 6,
   },
-
+  subHeader: {
+    fontSize: 16,
+    color: "#4B5563",
+    textAlign: "center",
+    marginBottom: 28,
+  },
   input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    marginBottom: 15,
-    borderRadius: 5,
+    backgroundColor: "#fff",
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 14,
+    marginBottom: 16,
+    fontSize: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    elevation: 3,
   },
   button: {
-    backgroundColor: "#ffa600",
-    padding: 15,
-    borderRadius: 5,
+    backgroundColor: "#F59E0B", // برتقالي
+    paddingVertical: 16,
+    borderRadius: 14,
+    alignItems: "center",
+    marginTop: 8,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 5,
   },
-  registerButton: {
-    backgroundColor: "#28a745",
-    padding: 15,
-    borderRadius: 5,
-    marginTop: 10,
+  buttonDisabled: {
+    backgroundColor: "#FBBF24",
   },
   buttonText: {
-    color: "white",
-    textAlign: "center",
-    fontWeight: "bold",
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "600",
   },
-  registerButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontWeight: "bold",
-  }
-
+  registerButton: {
+    marginTop: 15,
+    alignItems: "center",
+  },
+  registerText: {
+    color: "#3B82F6",
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  navigateButton: {
+    marginTop: 20,
+    alignItems: "center",
+    paddingVertical: 14,
+    borderRadius: 14,
+    backgroundColor: "#10B981", 
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  navigateButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
 });
