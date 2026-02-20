@@ -28,36 +28,48 @@ const seed = async () => {
 
     const restaurants = await Restaurant.bulkCreate([
       {
-        name: "Moroccan Taste",
-        category: "Moroccan",
-        image_url: "https://ik.imagekit.io/huntermed/moroccan.png",
+        name: "La Trattoria",
+        category: "Italian",
+        image_url:
+          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/29/a6/a2/salle.jpg?w=800&h=500&s=1",
         description:
-          "Authentic Moroccan cuisine with traditional spices and fresh ingredients.",
+          "Authentic Italian cuisine with fresh pasta and wood-fired pizzas.",
         rating: 4.5,
       },
       {
-        name: "Dragon Express",
-        category: "Chinese",
-        image_url: "https://ik.imagekit.io/huntermed/chinese.png",
+        name: "Le Bistro",
+        category: "French",
+        image_url:
+          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/28/7d/8f/casablanca-bistro.jpg?w=700&h=400&s=1",
         description:
-          "Fast and tasty Chinese dishes including noodles and dumplings.",
+          "Cozy French bistro serving classic dishes and fine wines.",
+        rating: 4.3,
+      },
+      {
+        name: "Tapas & Co",
+        category: "Spanish",
+        image_url:
+          "https://media-cdn.tripadvisor.com/media/photo-s/07/8f/f4/43/casa-alcalde.jpg",
+        description:
+          "Traditional Spanish tapas and paellas with a modern twist.",
         rating: 4.2,
       },
       {
-        name: "Pizza Roma",
-        category: "Italian",
-        image_url: "https://ik.imagekit.io/huntermed/italian.png",
-        description:
-          "Classic Italian pizzas and pastas made with fresh mozzarella and basil.",
-        rating: 4.8,
+        name: "The German Sausage",
+        category: "German",
+        image_url:
+          "https://dumaguete.com/wp-content/uploads/2014/08/casablanca-top.jpg",
+        description: "Specialty sausages, pretzels, and hearty German meals.",
+        rating: 4.0,
       },
       {
-        name: "Burger House",
-        category: "Fast Food",
-        image_url: "https://ik.imagekit.io/huntermed/burgershop.png",
+        name: "Nordic Delights",
+        category: "Scandinavian",
+        image_url:
+          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/99/c9/0d/casa-alcalde.jpg?w=900&h=200&s=1",
         description:
-          "Delicious burgers and fries made with quality ingredients.",
-        rating: 4.0,
+          "Fresh Nordic cuisine with seafood and traditional recipes.",
+        rating: 4.4,
       },
       {
         name: "Sushi World",
@@ -122,7 +134,7 @@ const seed = async () => {
         restaurant_id: restaurants[0].id,
       },
 
-      // Dragon Express
+      
       {
         name: "Chicken Noodles",
         price: 65,
@@ -141,11 +153,12 @@ const seed = async () => {
           "Classic Chinese fried rice with eggs, vegetables and soy sauce.",
         rating: 4.1,
         ingredients: "Rice, eggs, vegetables, soy sauce, chicken",
-        image_url: "https://images.getrecipekit.com/20220904015448-veg-20fried-20rice.png?aspect_ratio=16:9&quality=90&",
+        image_url:
+          "https://images.getrecipekit.com/20220904015448-veg-20fried-20rice.png?aspect_ratio=16:9&quality=90&",
         restaurant_id: restaurants[1].id,
       },
 
-      // Pizza Roma
+      
       {
         name: "Pizza Margherita",
         price: 95,
@@ -162,11 +175,12 @@ const seed = async () => {
         description: "Creamy pasta with parmesan cheese and crispy pancetta.",
         rating: 4.5,
         ingredients: "Spaghetti, eggs, parmesan, pancetta, pepper",
-        image_url: "https://www.jonesdairyfarm.com/wp-content/uploads/2024/04/Spaghetti-Carbonara-1024x683.jpg.webp",
+        image_url:
+          "https://www.jonesdairyfarm.com/wp-content/uploads/2024/04/Spaghetti-Carbonara-1024x683.jpg.webp",
         restaurant_id: restaurants[2].id,
       },
 
-      // Burger House
+      
       {
         name: "Cheeseburger Deluxe",
         price: 55,
@@ -184,7 +198,8 @@ const seed = async () => {
         description: "Golden crispy french fries served with ketchup.",
         rating: 4.0,
         ingredients: "Crispy french fries with ketchup",
-        image_url: "https://olo-images-live.imgix.net/16/161a5a82d5524cd5ac9e356712ec4885.jpg?auto=format%2Ccompress&q=60&cs=tinysrgb&w=1200&h=800&fit=fill&fm=png32&bg=transparent&s=d663f727f0937a2a28e1d909a0c2e047",
+        image_url:
+          "https://olo-images-live.imgix.net/16/161a5a82d5524cd5ac9e356712ec4885.jpg?auto=format%2Ccompress&q=60&cs=tinysrgb&w=1200&h=800&fit=fill&fm=png32&bg=transparent&s=d663f727f0937a2a28e1d909a0c2e047",
         restaurant_id: restaurants[3].id,
       },
 
@@ -227,7 +242,8 @@ const seed = async () => {
         description: "Grilled chicken burrito wrapped with rice and beans.",
         rating: 4.4,
         ingredients: "Chicken, rice, beans, cheese, tortilla",
-        image_url: "https://nomoneynotime.com.au/imager/uploads/recipes/1490/Chicken-Burrito_461122a663362b265b24d0ffaf0f7f5f.webp",
+        image_url:
+          "https://nomoneynotime.com.au/imager/uploads/recipes/1490/Chicken-Burrito_461122a663362b265b24d0ffaf0f7f5f.webp",
         restaurant_id: restaurants[5].id,
       },
 

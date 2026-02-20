@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: "600",
+    marginTop: 40,
   },
 
   card: {
@@ -228,6 +229,7 @@ const styles = StyleSheet.create({
     padding: 18,
     borderRadius: 15,
     alignItems: "center",
+    marginBottom: 30,
   },
 
   orderText: {
