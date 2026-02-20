@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useLocalSearchParams, router } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../src/services/api.js";
 
 import {
@@ -11,39 +10,31 @@ import {
   ActivityIndicator,
   StyleSheet,
   Alert,
+  SafeAreaView,
+  StatusBar,
 } from "react-native";
 
-
 export default function OrderScreen() {
-
   const { menuItemId, name, price } = useLocalSearchParams();
-
   const numericPrice = Number(price);
-
   const [quantity, setQuantity] = useState(1);
-
 
   const mutation = useMutation({
     mutationFn: async () => {
-
       const response = await api.post("/orders", {
         items: [
           {
             menu_item_id: Number(menuItemId),
             quantity: quantity,
-          }
-        ]
+          },
+        ],
       });
-
       return response.data;
     },
-
     onSuccess: () => {
       Alert.alert("Success", "Order created successfully");
-
       router.push("./myOrders");
     },
-
     onError: (error) => {
       Alert.alert("Error", error.message);
     },
@@ -51,159 +42,197 @@ export default function OrderScreen() {
 
   const total = numericPrice * quantity;
 
-
   return (
-    <View style={styles.container}>
-
-      <Text style={styles.title}>Order</Text>
-
-
-      <View style={styles.card}>
-
-        <Text style={styles.name}>{name}</Text>
-
-        <Text style={styles.price}>{numericPrice} MAD</Text>
-
-
-        <Text style={styles.label}>Quantity</Text>
-
-        <View style={styles.row}>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() =>
-              setQuantity(Math.max(1, quantity - 1))
-            }
-          >
-            <Text style={styles.buttonText}>-</Text>
+    <SafeAreaView style={styles.safe}>
+      <StatusBar barStyle="dark-content" />
+      <View style={styles.container}>
+        
+        {/* HEADER */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => router.back()}>
+            <Text style={styles.back}>←</Text>
           </TouchableOpacity>
-
-
-          <Text style={styles.quantity}>
-            {quantity}
-          </Text>
-
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() =>
-              setQuantity(quantity + 1)
-            }
-          >
-            <Text style={styles.buttonText}>+</Text>
-          </TouchableOpacity>
-
+          <Text style={styles.headerTitle}>Order Details</Text>
+          <View style={{ width: 24 }} />
         </View>
 
+        {/* CARD */}
+        <View style={styles.card}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.price}>{numericPrice} MAD</Text>
 
-        <Text style={styles.total}>
-          Total: {total} MAD
-        </Text>
+          <View style={styles.divider} />
 
+          <Text style={styles.label}>Quantity</Text>
 
+          <View style={styles.quantityContainer}>
+            <TouchableOpacity
+              style={styles.circleButton}
+              onPress={() => setQuantity(Math.max(1, quantity - 1))}
+            >
+              <Text style={styles.circleText}>−</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.quantity}>{quantity}</Text>
+
+            <TouchableOpacity
+              style={styles.circleButton}
+              onPress={() => setQuantity(quantity + 1)}
+            >
+              <Text style={styles.circleText}>+</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.totalContainer}>
+            <Text style={styles.totalLabel}>Total</Text>
+            <Text style={styles.totalPrice}>{total} MAD</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* BOTTOM BUTTON */}
+      <View style={styles.bottomContainer}>
         <TouchableOpacity
           style={styles.orderButton}
           onPress={() => mutation.mutate()}
           disabled={mutation.isPending}
         >
-
           {mutation.isPending ? (
             <ActivityIndicator color="#fff" />
           ) : (
-            <Text style={styles.orderText}>
-              Confirm Order
-            </Text>
+            <Text style={styles.orderText}>Confirm Order</Text>
           )}
-
         </TouchableOpacity>
-
-
       </View>
-
-    </View>
+    </SafeAreaView>
   );
 }
 
+const PRIMARY = "#FF7A00";
+const DARK = "#111";
+const LIGHT = "#F8F8F8";
+
 const styles = StyleSheet.create({
+  safe: {
+    flex: 1,
+    backgroundColor: LIGHT,
+  },
 
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    padding: 16,
-    justifyContent: "center",
+    padding: 20,
   },
 
-  title: {
-    fontSize: 24,
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 30,
+  },
+
+  back: {
+    fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
+  },
+
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "600",
   },
 
   card: {
-    backgroundColor: "#f2f2f2",
-    padding: 20,
-    borderRadius: 10,
+    backgroundColor: "#fff",
+    padding: 25,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 15,
+    elevation: 5,
   },
 
   name: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 22,
+    fontWeight: "700",
   },
 
   price: {
     fontSize: 18,
-    color: "green",
-    marginTop: 5,
+    color: PRIMARY,
+    marginTop: 6,
+  },
+
+  divider: {
+    height: 1,
+    backgroundColor: "#eee",
+    marginVertical: 20,
   },
 
   label: {
-    marginTop: 20,
-    fontSize: 16,
+    fontSize: 15,
+    color: "#777",
+    marginBottom: 10,
   },
 
-  row: {
+  quantityContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
+    justifyContent: "center",
+    marginBottom: 25,
   },
 
-  button: {
-    backgroundColor: "#ffa600",
-    padding: 10,
-    borderRadius: 5,
-    width: 40,
+  circleButton: {
+    backgroundColor: PRIMARY,
+    width: 45,
+    height: 45,
+    borderRadius: 25,
     alignItems: "center",
+    justifyContent: "center",
   },
 
-  buttonText: {
+  circleText: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: 22,
+    fontWeight: "bold",
   },
 
   quantity: {
-    fontSize: 18,
-    marginHorizontal: 20,
+    fontSize: 22,
+    fontWeight: "600",
+    marginHorizontal: 25,
   },
 
-  total: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 20,
+  totalContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  totalLabel: {
+    fontSize: 16,
+    color: "#777",
+  },
+
+  totalPrice: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: DARK,
+  },
+
+  bottomContainer: {
+    padding: 20,
+    backgroundColor: "#fff",
   },
 
   orderButton: {
-    backgroundColor: "#000",
-    padding: 15,
-    borderRadius: 8,
-    marginTop: 20,
+    backgroundColor: DARK,
+    padding: 18,
+    borderRadius: 15,
     alignItems: "center",
   },
 
   orderText: {
     color: "#fff",
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "600",
   },
-
 });
