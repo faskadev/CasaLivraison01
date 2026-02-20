@@ -9,9 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-
 export default function OrdersScreen() {
-
   const { data, isLoading, isError } = useQuery({
     queryKey: ["orders"],
     queryFn: async () => {
@@ -20,76 +18,73 @@ export default function OrdersScreen() {
     },
   });
 
-
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" />
-        <Text>Loading orders...</Text>
+        <ActivityIndicator size="large" color="#FF6347" />
+        <Text style={{ marginTop: 10, fontSize: 16 }}>Loading orders...</Text>
       </View>
     );
   }
-
 
   if (isError) {
     return (
       <View style={styles.center}>
-        <Text>Error loading orders</Text>
+        <Text style={{ fontSize: 16, color: "red" }}>Error loading orders</Text>
       </View>
     );
   }
 
-
-  const renderOrder = ({ item }) => {
-
-    return (
-      <View style={styles.card}>
-
-        <Text style={styles.id}>
-          Order #{item.id}
-        </Text>
-
-        <Text>
-          Status: {item.status}
-        </Text>
-
-        <Text style={styles.total}>
-          Total: {item.total_price} MAD
-        </Text>
-
-      </View>
-    );
+  const getStatusColor = (status) => {
+    switch (status.toLowerCase()) {
+      case "pending":
+        return "#FFA500"; // برتقالي
+      case "completed":
+        return "#32CD32"; // أخضر
+      case "canceled":
+        return "#FF4500"; // أحمر
+      default:
+        return "#808080"; // رمادي
+    }
   };
 
+  const renderOrder = ({ item }) => (
+    <View style={styles.card}>
+      <View style={styles.header}>
+        <Text style={styles.id}>Order #{item.id}</Text>
+        <Text style={[styles.status, { color: getStatusColor(item.status) }]}>
+          {item.status}
+        </Text>
+      </View>
+
+      <Text style={styles.total}>Total: {item.total_price} MAD</Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
-
       <Text style={styles.title}>My Orders</Text>
-
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderOrder}
+        contentContainerStyle={{ paddingBottom: 20 }}
       />
-
     </View>
   );
 }
 
-
-
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: "#FFF8F0",
   },
 
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 26,
+    fontWeight: "700",
+    color: "#FF6347",
     marginBottom: 16,
   },
 
@@ -100,10 +95,22 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#FFFFFF",
     padding: 16,
-    borderRadius: 10,
+    borderRadius: 12,
     marginBottom: 12,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 5,
+    elevation: 4,
+  },
+
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
   },
 
   id: {
@@ -111,9 +118,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  total: {
-    marginTop: 4,
-    fontWeight: "bold",
+  status: {
+    fontWeight: "600",
+    fontSize: 14,
   },
 
+  total: {
+    fontWeight: "bold",
+    fontSize: 15,
+    color: "#333",
+  },
 });

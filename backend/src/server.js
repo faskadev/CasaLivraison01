@@ -34,7 +34,7 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log("Database connected");
 
-    await sequelize.sync({ alter: true });
+    await sequelize.sync({ force: true });
 
     console.log("Models synced");
 

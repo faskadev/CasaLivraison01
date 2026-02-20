@@ -22,14 +22,14 @@ export default function MenuScreen() {
       const response = await api.get(`/menuItem/restaurant/${restaurantId}`);
       return response.data;
     },
-    enabled: !!restaurantId, 
+    enabled: !!restaurantId,
   });
 
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" />
-        <Text>Loading menu...</Text>
+        <ActivityIndicator size="large" color="#FF6347" />
+        <Text style={{ marginTop: 10, fontSize: 16 }}>Loading menu...</Text>
       </View>
     );
   }
@@ -37,7 +37,7 @@ export default function MenuScreen() {
   if (isError) {
     return (
       <View style={styles.center}>
-        <Text>Error loading menu</Text>
+        <Text style={{ fontSize: 16, color: "red" }}>Error loading menu</Text>
         <Text>{error.message}</Text>
       </View>
     );
@@ -45,63 +45,60 @@ export default function MenuScreen() {
 
   const renderItem = ({ item }) => {
     return (
-      <TouchableOpacity
-        style={styles.card}
-        onPress={() =>
-          router.push({
-            pathname: "/order",
-            params: {
-              menuItemId: item.id,
-              name: item.name,
-              price: item.price,
-            },
-          })
-        }
-      >
+      <View style={styles.cardContainer}>
         {item.image_url && (
-          <Image
-            source={{ uri: item.image_url }}
-            style={styles.image}
-          />
+          <Image source={{ uri: item.image_url }} style={styles.image} />
         )}
-        <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.price}>{item.price} MAD</Text>
-        {item.ingredients && (
-          <Text style={styles.ingredients}>
-            {item.ingredients}
-          </Text>
-        )}
-      </TouchableOpacity>
+        <View style={styles.info}>
+          <Text style={styles.name}>{item.name}</Text>
+          {item.ingredients && (
+            <Text style={styles.ingredients}>{item.ingredients}</Text>
+          )}
+          <Text style={styles.price}>{item.price} MAD</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              router.push({
+                pathname: "/order",
+                params: {
+                  menuItemId: item.id,
+                  name: item.name,
+                  price: item.price,
+                },
+              })
+            }
+          >
+            <Text style={styles.buttonText}>Add to Cart</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   };
 
   return (
     <View style={styles.container}>
-
-      <Text style={styles.title}>Menu</Text>
-
+      <Text style={styles.title}>Our Menu</Text>
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         contentContainerStyle={{ paddingBottom: 20 }}
       />
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#FFF8F0",
     padding: 16,
   },
 
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 26,
+    fontWeight: "700",
+    color: "#FF6347",
     marginBottom: 16,
   },
 
@@ -111,35 +108,62 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  card: {
-    backgroundColor: "#f2f2f2",
-    padding: 16,
-    borderRadius: 10,
+  cardContainer: {
+    flexDirection: "row",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 5,
+    elevation: 5,
     marginBottom: 12,
+    overflow: "hidden",
   },
 
   image: {
-    width: "100%",
-    height: 200,
-    borderRadius: 8,
-    marginBottom: 8,
+    width: 120,
+    height: 120,
+    borderTopLeftRadius: 12,
+    borderBottomLeftRadius: 12,
+  },
+
+  info: {
+    flex: 1,
+    padding: 12,
+    justifyContent: "space-between",
   },
 
   name: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "#333",
+  },
+
+  ingredients: {
+    fontSize: 13,
+    color: "#666",
+    marginVertical: 4,
   },
 
   price: {
     fontSize: 16,
-    color: "green",
-    marginTop: 4,
+    color: "#FF6347",
+    fontWeight: "600",
   },
 
-  ingredients: {
+  button: {
+    backgroundColor: "#FF6347",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    alignSelf: "flex-start",
+    marginTop: 6,
+  },
+
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
     fontSize: 14,
-    color: "gray",
-    marginTop: 4,
   },
-
 });

@@ -12,28 +12,21 @@ import {
   Image,
 } from "react-native";
 
-
 export default function RestaurantsScreen() {
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["restaurants"],
     queryFn: async () => {
-      try {
-        const response = await api.get("/restaurants");
-        console.log("Restaurants response:", response.data);
-        return response.data;
-      } catch (err) {
-        console.log("Restaurants fetch error:", err);
-        throw err;
-      }
+      const response = await api.get("/restaurants");
+      return response.data;
     },
   });
 
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#000" />
-        <Text>Loading restaurants...</Text>
+        <ActivityIndicator size="large" color="#FF6347" />
+        <Text style={{ marginTop: 10, fontSize: 16 }}>Loading restaurants...</Text>
       </View>
     );
   }
@@ -41,7 +34,7 @@ export default function RestaurantsScreen() {
   if (isError) {
     return (
       <View style={styles.center}>
-        <Text>Error loading restaurants</Text>
+        <Text style={{ fontSize: 16, color: "red" }}>Error loading restaurants</Text>
         <Text>{error?.message || "Unknown error"}</Text>
       </View>
     );
@@ -55,61 +48,47 @@ export default function RestaurantsScreen() {
     );
   }
 
-  const renderRestaurant = ({ item }) => {
-    return (
-      <TouchableOpacity
-        style={styles.card}
-        onPress={() =>
-          router.push({
-            pathname: "/menu",
-            params: { restaurantId: item.id },
-          })
-        }
-      >
-        {item.image_url && (
-          <Image
-            source={{ uri: item.image_url }}
-            style={styles.image}
-          />
-        )}
-        <Text style={styles.name}>{item.name}</Text>
+  const renderRestaurant = ({ item }) => (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => router.push({ pathname: "/menu", params: { restaurantId: item.id } })}
+    >
+      {item.image_url && (
+        <Image source={{ uri: item.image_url }} style={styles.image} />
+      )}
 
-        {item.address && (
-          <Text style={styles.address}>{item.address}</Text>
-        )}
-      </TouchableOpacity>
-    );
-  };
+      <View style={styles.info}>
+        <Text style={styles.name}>{item.name}</Text>
+        {item.category && <Text style={styles.category}>{item.category}</Text>}
+        {item.address && <Text style={styles.address}>{item.address}</Text>}
+      </View>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
-
       <Text style={styles.title}>Restaurants</Text>
-
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderRestaurant}
         contentContainerStyle={{ paddingBottom: 20 }}
       />
-
     </View>
   );
 }
 
-
-
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     padding: 16,
+    backgroundColor: "#FFF8F0",
   },
 
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 26,
+    fontWeight: "700",
+    color: "#FF6347",
     marginBottom: 16,
   },
 
@@ -120,28 +99,42 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: "#f2f2f2",
-    padding: 16,
-    borderRadius: 10,
-    marginBottom: 12,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    marginBottom: 16,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 5,
+    elevation: 4,
   },
 
   image: {
     width: "100%",
     height: 200,
-    borderRadius: 8,
-    marginBottom: 8,
+  },
+
+  info: {
+    padding: 12,
   },
 
   name: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
+    color: "#333",
+    marginBottom: 4,
+  },
+
+  category: {
+    fontSize: 14,
+    color: "#FF6347",
+    fontWeight: "600",
+    marginBottom: 4,
   },
 
   address: {
     fontSize: 14,
-    color: "gray",
-    marginTop: 4,
+    color: "#666",
   },
-
 });
