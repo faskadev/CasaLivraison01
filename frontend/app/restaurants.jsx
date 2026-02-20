@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
 
   category: {
     fontSize: 14,
-    color: "#FF6347",
+    color: "#FF7A00",
     fontWeight: "600",
     marginBottom: 4,
   },
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
 
   rating: {
     fontSize: 14,
-    color: "#FF6347",
+    color: "#FF7A00",
     fontWeight: "600",
     marginBottom: 4,
   },
