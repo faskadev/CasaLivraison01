@@ -48,6 +48,7 @@ export default function RestaurantsScreen() {
   }
 
   const renderRestaurant = ({ item }) => (
+    
     <TouchableOpacity
       style={styles.card}
       onPress={() => router.push({ pathname: "/menu", params: { restaurantId: item.id } })}
@@ -62,6 +63,7 @@ export default function RestaurantsScreen() {
         {item.address && <Text style={styles.address}>{item.address}</Text>}
       </View>
     </TouchableOpacity>
+            
   );
 
   return (
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#FF6347",
     marginBottom: 16,
+    marginTop: 25,
   },
 
   center: {

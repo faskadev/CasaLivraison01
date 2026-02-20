@@ -1,15 +1,16 @@
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image } from "react-native";
 import { router } from "expo-router";
 
 export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
 
-      <View style={styles.topSection}>
-        <Text style={styles.brand}>CasaLivraison</Text>
-        <Text style={styles.tagline}>
-          Fast delivery at your doorstep
-        </Text>
+      <View style={styles.logoContainer}>
+        <Image
+          source={require("../assets/images/logo.png")}
+          style={styles.logo}
+          resizeMode="contain"
+        />
       </View>
 
       <View style={styles.middleSection}>
@@ -49,13 +50,26 @@ const LIGHT = "#F4F6F8";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: LIGHT,
     paddingHorizontal: 25,
     justifyContent: "space-between",
+    backgroundColor: LIGHT,
+  },
+
+  logoContainer: {
+    alignItems: "center",
+    marginTop: 40,
+    marginBottom: 20,
+  },
+
+  logo: {
+    width: 220,
+    height: 200,
+    marginTop:100,
   },
 
   topSection: {
-    marginTop: 60,
+    marginTop: 0,
+    alignItems: "center",
   },
 
   brand: {
@@ -65,9 +79,10 @@ const styles = StyleSheet.create({
   },
 
   tagline: {
-    fontSize: 14,
+    fontSize: 24,
     color: "#666",
     marginTop: 8,
+    fontFamily: "Poppins-Regular",
   },
 
   middleSection: {
@@ -97,10 +112,6 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: "center",
     marginBottom: 15,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 5,
   },
 
   primaryText: {
@@ -115,6 +126,8 @@ const styles = StyleSheet.create({
     paddingVertical: 18,
     borderRadius: 18,
     alignItems: "center",
+    marginBottom: 40,
+
   },
 
   secondaryText: {
