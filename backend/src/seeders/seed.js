@@ -294,6 +294,7 @@ const seed = async () => {
     ]);
     console.log("Menu items created");
     console.log("SEED COMPLETE");
+    console.log("Faska is ready to serve delicious meals!");
     process.exit();
   } catch (error) {
     console.error(error);

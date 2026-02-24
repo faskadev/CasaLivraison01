@@ -5,8 +5,7 @@ import {
   TextInput,
   StyleSheet,
   Alert,
-    Image,
-
+  Image,
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
@@ -39,7 +38,7 @@ export default function LoginScreen() {
     } catch (error) {
       Alert.alert(
         "Login failed",
-        error.response?.data?.message || error.message || "Error occurred"
+        error.response?.data?.message || error.message || "Error occurred",
       );
     } finally {
       setLoading(false);
