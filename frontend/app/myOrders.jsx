@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../src/services/api.js";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import {
   View,
@@ -8,7 +9,6 @@ import {
   Image,
   ActivityIndicator,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
 } from "react-native";
 

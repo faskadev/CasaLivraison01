@@ -96,10 +96,10 @@ export default function LoginScreen() {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => router.push("/index")}
+        onPress={() => router.push("/")}
         style={styles.navigateButton}
       >
-        <Text style={styles.navigateButtonText}>Go to Home Page</Text>
+        <Text style={styles.navigateButtonText}> Home Page</Text>
       </TouchableOpacity>
     </View>
   );

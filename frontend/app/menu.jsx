@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams, router } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 import api from "../src/services/api.js";
 
 import {
@@ -10,7 +11,6 @@ import {
   ActivityIndicator,
   StyleSheet,
   Image,
-  SafeAreaView,
   StatusBar,
 } from "react-native";
 
